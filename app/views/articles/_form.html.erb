@@ -1,0 +1,24 @@
+<%= form_for @articulo do |f| %>
+	<% if not @articulo.errors.empty? then %>
+		<div class="alert alert-danger">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<% @articulo.errors.full_messages.each do |errores| %>
+				<div>
+					<strong>*</strong> <%= errores %>				 
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+	<div class="input-group">
+		<span class="input-group-addon" id="basic-addon1"><label for="article_title">Titulo:</label></span>
+		<%= f.text_field :title, class: "form-control" %>
+	</div>
+	<br>
+	<div class="form-group">
+		<%= f.text_area :body, placeholder:"Escribe tu Artículo aqui", class:"form-control", rows:"10" %>
+	</div>
+	<div class="input-group">
+		<%= f.submit "Guardar", class:"btn btn-primary btn-block" %>
+	</div>
+	<br>
+<% end %>

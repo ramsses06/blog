@@ -1,0 +1,53 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!--  NAV USER LOG  -->
+            <% if user_signed_in? then %>
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.email %> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><%= link_to "Mis Artículos", articles_path %></li>
+                            <li role="separator" class="divider"></li>
+                            <li><%= link_to "Crear Artículo", new_article_path %></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-left">
+                    <li><%= link_to "Cerrar sesion", destroy_user_session_path, method: :delete %></li>
+                </ul>
+            <% else %>
+                <ul class="nav navbar-nav navbar-left">
+                    <li><%= link_to "Iniciar sesion", "/users/sign_in" %></li>
+                </ul>
+            <% end %>
+            <!--  NAV PUBLICA  -->
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    <%=link_to "Inicio", root_path, class: "page-scroll" %>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Diseño</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Programación</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Tecnología</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta  charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Blog</title>
+  <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+</head>
+
+
+<body cz-shortcut-listen="true">
+
+	<%= render "layouts/navbar" %>
+
+	<header>
+	</header>
+
+	<error class="notice"><%= notice %></error>
+	<error class="alert"><%= alert %></error>
+
+	<div class="container contenedor-principal">
+		<div class="row">
+			<div class="col-md-8">
+				<%= yield %>
+			</div>
+			<div class="col-md-4">
+				<%= render "layouts/siderbar" %>
+			</div>
+		</div>
+	</div>
+
+	<footer class="container-fluid">
+		<%= render 'layouts/footer' %>
+	</footer>
+
+</body>
+</html>
