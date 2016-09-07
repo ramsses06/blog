@@ -4,8 +4,9 @@ class ArticlesController < ApplicationController
 	before_action :authenticate_user! , except: [:index,:show]
 	before_action :editar_articulo, only: [:edit,:update,:destroy]
 	before_action :set_articulos_user, only: [:update, :edit, :destroy]
+	
 	#GET /articles   ->   articles_path
-	def index()		
+	def index()
   		@articulos = current_user.articles.all
 	end
 
