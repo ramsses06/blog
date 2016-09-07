@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
 
 	private
 	def article_params()
-		params.require(:article).permit(:title, :body) #nos pertmite traer solo los parametros deseados
+		params.require(:article).permit(:title, :body, :imageblog) #nos pertmite traer solo los parametros deseados
 	end
 	def editar_articulo()
 		unless Article.find(params[:id]).user == current_user then

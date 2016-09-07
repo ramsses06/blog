@@ -10,6 +10,11 @@
 		</div>
 	<% end %>
 	<div class="input-group">
+		<span class="input-group-addon" id="basic-addon1"><label for="article_imageblog">Imagen de Portada:</label></span>
+		<%= f.file_field :imageblog, class: "form-control btn btn-default" %>
+	</div>
+	<br>
+	<div class="input-group">
 		<span class="input-group-addon" id="basic-addon1"><label for="article_title">Titulo:</label></span>
 		<%= f.text_field :title, class: "form-control" %>
 	</div>
