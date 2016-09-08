@@ -47,7 +47,7 @@ class ArticlesController < ApplicationController
 
 	#GET /articles/:id/edit   ->   edit_article_path(:id)
 	def edit()
-		# @articulo = current_user.articles.find(params[:id])
+		@articulo = current_user.articles.find(params[:id])
 	end
 
 	#PUT/PATCH /articles/:id   ->   article_path(:id)
