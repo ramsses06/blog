@@ -4,7 +4,7 @@ class Article < ActiveRecord::Base
 	belongs_to :user
 	has_many :comments
 	# referencia a la imagen
-	has_attached_file :imageblog, styles: {medium:"1280x720", thumb:"900x300#"}
+	has_attached_file :imageblog, styles: {medium:"1280x720#", thumb:"900x300#"}
 
 	validates :title, presence: {message: "= El titulo requerido"}, length: {minimum: 5 , message: "= Minimo 5 caracteres"}, uniqueness: {message: "= Este titulo ya existe"}, format: {with: /\A[a-zA-Z0-9 ]+\z/ , message: "= Solo acepta letras y numeros"}
 	validates :body, presence: {message: "= El cuerpo del articulo es requerido"}, length: {minimum: 20, message: "= El articulo debe contener minimo 20 carateres"}
