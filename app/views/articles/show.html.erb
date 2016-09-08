@@ -21,7 +21,7 @@
 
 <span class="glyphicon glyphicon-time"></span> Se creo el: <%= @articulo.created_at %>
 <br>
-<img class="img-responsive" src="<%= @articulo.imageblog.url() %>" alt="">
+<img class="img-responsive" src="<%= @articulo.imageblog.url(:medium) %>" alt="">
 <br>
 <p> <%= @articulo.body %> </p>
 <span class="text-muted"><b> <%= tamano(@articulo.comments) %> </b>comentarios </span>
