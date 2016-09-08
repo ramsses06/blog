@@ -191,7 +191,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
-  paperclip
+  paperclip (= 5.1.0)
   pg (= 0.15.1)
   rails (= 4.2.5.1)
   rails_12factor (= 0.0.2)
