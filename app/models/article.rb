@@ -46,7 +46,7 @@ class Article < ActiveRecord::Base
 		@encontrar = HasCategory.where('article_id LIKE ?',self.id)
 		if @encontrar then
 			@encontrar.each do |encontrar|
-				encontrar.destroy
+				encontrar.delete
 			end
 		end
 		# if @categories then
