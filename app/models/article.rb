@@ -43,12 +43,12 @@ class Article < ActiveRecord::Base
 		end
 	end
 	def update_categories()
-		@encontrar = HasCategory.where('article_id LIKE ?',self.id)
-		if @encontrar then
-			@encontrar.each do |encontrar|
-				encontrar.destroy
-			end
-		end
+		# @encontrar = HasCategory.where('article_id LIKE ?',self.id)
+		# if @encontrar then
+		# 	@encontrar.each do |encontrar|
+		# 		encontrar.destroy
+		# 	end
+		# end
 		if @categories then
 			@categories.each do |cat_id|
 				HasCategory.create(category_id: cat_id, article_id: self.id)
