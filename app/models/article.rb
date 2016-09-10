@@ -27,6 +27,10 @@ class Article < ActiveRecord::Base
 		@categories = values
 	end
 
+	def borrar_HasCategory(id)
+		id.destroy_all
+	end
+
 	# def visits_count_default()
 	# 	self.visits_count ||= 0
 	# end
@@ -43,12 +47,6 @@ class Article < ActiveRecord::Base
 		end
 	end
 	def update_categories()
-		@encontrar = HasCategory.where('article_id LIKE ?',self.id)
-		if @encontrar then
-			@encontrar.each do |encontrar|
-				encontrar.delete
-			end
-		end
 		# if @categories then
 		# 	@categories.each do |cat_id|
 		# 		HasCategory.create(category_id: cat_id, article_id: self.id)

@@ -55,6 +55,9 @@ class ArticlesController < ApplicationController
 
 	#PUT/PATCH /articles/:id   ->   article_path(:id)
 	def update()
+		@categorias_borrar = HasCategory.where('article_id = ?',params[:id])
+		@articulo.borrar_HasCategory(@categorias_borrar)
+
 		@articulo.categories = params[:categories]
 		if @articulo.update(article_params()) then
 			redirect_to @articulo
