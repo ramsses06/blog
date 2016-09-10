@@ -24,9 +24,17 @@
 <img class="img-responsive" src="<%= @articulo.imageblog.url(:medium) %>" alt="">
 <br>
 <p> <%= @articulo.body %> </p>
-<span class="text-muted"><b> <%= tamano(@articulo.comments) %> </b>comentarios </span>
--
-<span class="text-muted"><b> <%= @articulo.visits_count %> </b>vistas </span>
+ <span class="badge"><%= tamano(@articulo.comments) %></span><span class="text-muted">comentarios</span>
+&nbsp;
+<span class="badge"><%= @articulo.visits_count %></span><span class="text-muted">vistas</span>
+<br>
+<br>
+<div>
+<span class="text-muted">Categorias: </span>
+<% @articulo.categories.each do |categoria| %>
+    <%= link_to categoria.name, categoria, class:"btn btn-default", style:"color:#{categoria.color};" %>
+<% end %>
+</div>
 <br>
 <br>
 

@@ -14,13 +14,14 @@ class ArticlesController < ApplicationController
 	def show()
 		@comment = Comment.new
 		@articulo = Article.find(params[:id])
-		@articulo.inc_visits()
+		# @articulo.inc_visits()
 		@comentarios = @articulo.comments.order("id DESC")
 	end
 
 	#GET /articles/new   ->   new_article_path
 	def new()
 		@articulo = current_user.articles.new()
+		@category = Category.all
 	end
 
 	#POST /articles   ->   articles_path
@@ -31,6 +32,7 @@ class ArticlesController < ApplicationController
 		# 	)
 
 		@articulo = current_user.articles.new(article_params())
+		@articulo.categories = params[:categories] #llamando al custom setter del modelo
 		if @articulo.save() then
 			redirect_to @articulo
 		else
@@ -48,11 +50,12 @@ class ArticlesController < ApplicationController
 	#GET /articles/:id/edit   ->   edit_article_path(:id)
 	def edit()
 		@articulo = current_user.articles.find(params[:id])
+		@category = Category.all
 	end
 
 	#PUT/PATCH /articles/:id   ->   article_path(:id)
 	def update()
-		# @articulo = current_user.articles.find(params[:id])
+		@articulo.categories = params[:categories]
 		if @articulo.update(article_params()) then
 			redirect_to @articulo
 		else

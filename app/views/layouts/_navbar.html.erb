@@ -38,11 +38,10 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Diseño</a></li>
+                    <% @categories_nav.each do |categoria| %>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Programación</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Tecnología</a></li>
+                        <li><%= link_to categoria.name, categoria, style:"color:#{categoria.color};" %></li>                        
+                    <% end %>
                     </ul>
                 </li>
             </ul>

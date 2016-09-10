@@ -22,6 +22,12 @@
 	<div class="form-group">
 		<%= f.text_area :body, placeholder:"Escribe tu Artículo aqui", class:"form-control", rows:"10" %>
 	</div>
+	<br>
+	<% @category.each do |category| %>
+		<div class="form-group">
+			<%= check_box_tag "categories[]", category.id %> <label><%= category.name %></label>
+		</div>
+	<% end %>
 	<div class="input-group">
 		<%= f.submit "Guardar", class:"btn btn-primary btn-block" %>
 	</div>
