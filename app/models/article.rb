@@ -45,7 +45,9 @@ class Article < ActiveRecord::Base
 	def update_categories()
 		@encontrar = HasCategory.where('article_id LIKE ?',self.id)
 		if @encontrar then
-			@encontrar.destroy_all
+			@encontrar.each do |encontrar|
+				encontrar.destroy
+			end
 		end
 		if @categories then
 			@categories.each do |cat_id|
