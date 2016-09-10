@@ -29,7 +29,9 @@ class Article < ActiveRecord::Base
 
 	def borrar_HasCategory(id)
 		@borrar = HasCategory.where('article_id = ?',id)
-		@borra.destroy_all
+		if @borrar then
+			@borrar.destroy_all
+		end
 	end
 
 	# def visits_count_default()
