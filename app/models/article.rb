@@ -4,7 +4,7 @@ class Article < ActiveRecord::Base
 	belongs_to :user
 	has_many :comments
 	# referencia a la imagen
-	has_attached_file :imageblog, styles: {medium:"1280x720#", thumb:"900x300#"}
+	has_attached_file :imageblog#, styles: {medium:"1280x720#", thumb:"900x300#"}
 	#referencia muchas categorias
 	has_many :has_categories
 	has_many :categories, through: :has_categories
@@ -20,36 +20,28 @@ class Article < ActiveRecord::Base
 	do_not_validate_attachment_file_type :imageblog
 
 	after_create :save_categories #antes de crear guarda las catagorias guardadas por el custom setter
-	after_update :update_categories
+	after_update :save_categories
 
 	#custom setter ->  guardar id de categorias en un arreglo
 	def categories=(values)
 		@categories = values
 	end
-
+	
 	def borrar_HasCategory(id)
 		@borrar = HasCategory.where('article_id = ?',id)
 		if @borrar then
 			@borrar.destroy_all
 		end
+		self.imageblog = nil
+		self.save
 	end
 
-	# def visits_count_default()
-	# 	self.visits_count ||= 0
-	# end
-
-	# def inc_visits()
-	# end
+	def inc_visits()
+		self.update_attribute(:visits_count, self.visits_count + 1)
+	end
 
 	private
 	def save_categories()
-		if @categories then
-			@categories.each do |cat_id|
-				HasCategory.create(category_id: cat_id, article_id: self.id)
-			end
-		end
-	end
-	def update_categories()
 		if @categories then
 			@categories.each do |cat_id|
 				HasCategory.create(category_id: cat_id, article_id: self.id)

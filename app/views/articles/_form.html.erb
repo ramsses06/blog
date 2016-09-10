@@ -1,4 +1,4 @@
-<%= form_for @articulo do |f| %>
+<%= form_for @articulo, html: { multipart: true } do |f| %>
 	<% if not @articulo.errors.empty? then %>
 		<div class="alert alert-danger">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

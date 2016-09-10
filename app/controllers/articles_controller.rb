@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
 
 	#callback para realizar algo antes o despues de la acciones del controlador.
-	before_action :authenticate_user! , except: [:index,:show]
+	before_action :authenticate_user! , except: [:show]
 	before_action :editar_articulo, only: [:edit,:update,:destroy]
 	before_action :set_articulos_user, only: [:update, :edit, :destroy]
 	
@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
 	def show()
 		@comment = Comment.new
 		@articulo = Article.find(params[:id])
-		# @articulo.inc_visits()
+		@articulo.inc_visits()
 		@comentarios = @articulo.comments.order("id DESC")
 	end
 
@@ -32,6 +32,7 @@ class ArticlesController < ApplicationController
 		# 	)
 
 		@articulo = current_user.articles.new(article_params())
+		@articulo.afirmacion = true
 		@articulo.categories = params[:categories] #llamando al custom setter del modelo
 		if @articulo.save() then
 			redirect_to @articulo
@@ -56,8 +57,8 @@ class ArticlesController < ApplicationController
 	#PUT/PATCH /articles/:id   ->   article_path(:id)
 	def update()
 		@articulo.borrar_HasCategory(params[:id])
-
 		@articulo.categories = params[:categories]
+
 		if @articulo.update(article_params()) then
 			redirect_to @articulo
 		else
@@ -76,7 +77,11 @@ class ArticlesController < ApplicationController
 		end
 	end
 	def set_articulos_user()
-		@articulo = current_user.articles.find(params[:id])
+		unless current_user.articles.find(params[:id]) then
+			render file: "#{Rails.root}/public/404.html",  :status => 404
+		else
+			@articulo = current_user.articles.find(params[:id])
+		end
 	end
 
 end
