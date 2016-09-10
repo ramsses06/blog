@@ -55,8 +55,7 @@ class ArticlesController < ApplicationController
 
 	#PUT/PATCH /articles/:id   ->   article_path(:id)
 	def update()
-		@categorias_borrar = HasCategory.where('article_id = ?',params[:id])
-		@articulo.borrar_HasCategory(@categorias_borrar)
+		@articulo.borrar_HasCategory(params[:id])
 
 		@articulo.categories = params[:categories]
 		if @articulo.update(article_params()) then
