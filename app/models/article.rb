@@ -47,11 +47,11 @@ class Article < ActiveRecord::Base
 		end
 	end
 	def update_categories()
-		# if @categories then
-		# 	@categories.each do |cat_id|
-		# 		HasCategory.create(category_id: cat_id, article_id: self.id)
-		# 	end
-		# end
+		if @categories then
+			@categories.each do |cat_id|
+				HasCategory.create(category_id: cat_id, article_id: self.id)
+			end
+		end
 	end
 
 end
