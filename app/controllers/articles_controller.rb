@@ -55,6 +55,8 @@ class ArticlesController < ApplicationController
 		@articulo.categories.destroy_all()
 		@articulo.pictures.destroy_all()
 		@articulo.comments.destroy_all()
+		@articulo.has_categories.destroy_all()
+		@articulo.view.destroy()
 		redirect_to :back
 	end
 
