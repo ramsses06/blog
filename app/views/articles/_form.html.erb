@@ -9,10 +9,28 @@
 			<% end %>
 		</div>
 	<% end %>
+
+	<% if @articulo.id then %>
+		<% @veces = size_img_db(@articulo.id) %>
+	<% else %>
+		<% @veces = 3 %>
+	<% end %>
+
+	<% @veces.times.each do %>
 	<div class="input-group">
-		<span class="input-group-addon" id="basic-addon1"><label for="article_imageblog">Imagen de Portada:</label></span>
-		<%= f.file_field :imageblog, class: "form-control btn btn-default" %>
-	</div>
+		<span class="input-group-addon" id="basic-addon1"><label for="">Imagenes:</label></span>
+		 <%= file_field_tag "images[]", type: :file, multiple: true, class: "form-control btn btn-default"  %>
+	</div><br>
+	<% end %>
+
+	<% @articulo.pictures.each do |imagenes| %> 
+		<%= f.fields_for :pictures, imagenes do |image_fields| %>
+			<%= image_tag imagenes.image.url(), class: "img-responsive", style:"width:200px;" %>
+			<%= check_box_tag "imagenes[]", imagenes.id %> Eliminar
+
+		<% end %>
+	<% end %>
+
 	<br>
 	<div class="input-group">
 		<span class="input-group-addon" id="basic-addon1"><label for="article_title">Titulo:</label></span>

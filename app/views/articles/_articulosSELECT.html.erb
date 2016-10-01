@@ -12,13 +12,16 @@
         <% end %>
 
         <% if user_signed_in? and articulo.user == current_user then %>
-            <%= link_to " Eliminar ", articulo, method: :delete, remote:true, id:"eliminar", class:"glyphicon glyphicon-trash btn btn-danger btn-xs right" %> &nbsp;
+            <%= link_to " Eliminar ", articulo, method: :delete, id:"eliminar", class:"glyphicon glyphicon-trash btn btn-danger btn-xs right" %> &nbsp;
     		<%= link_to " Modificar", edit_article_path(articulo), class:"glyphicon glyphicon-pencil btn btn-primary btn-xs right" %>
         <% end %>
     </p>
     <span class="glyphicon glyphicon-time"></span> Se creo el: <%= articulo.created_at %>
     <br>
-    <img class="img-responsive" src="<%= articulo.imageblog.url(:thumb) %>" alt="">
+    <% articulo.pictures.each do |imagen| %>
+    <img class="img-responsive" src="<%= imagen.image.url() %>" alt="">
+    <% break %>
+    <% end %>
     <br>
     <p> <%= truncate(articulo.body, length:80) %> </p>
     <div class="row">
@@ -28,7 +31,7 @@
         <div class="col-md-6 text-right">
             <span class="badge"><%= tamano(articulo.comments) %></span><span class="text-muted">comentarios</span>
             &nbsp;
-            <span class="badge"><%= articulo.visits_count %></span><span class="text-muted">vistas</span>
+            <span class="badge"><%= articulo.view.vistas %></span><span class="text-muted">vistas</span>
         </div>
     </div>
     <br>

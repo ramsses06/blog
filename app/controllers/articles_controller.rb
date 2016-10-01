@@ -4,6 +4,7 @@ class ArticlesController < ApplicationController
 	before_action :authenticate_user! , except: [:show]
 	before_action :editar_articulo, only: [:edit,:update,:destroy]
 	before_action :set_articulos_user, only: [:update, :edit, :destroy]
+
 	
 	#GET /articles   ->   articles_path
 	def index()
@@ -30,22 +31,30 @@ class ArticlesController < ApplicationController
 		# 	title: params[:article][:title],
 		# 	body: params[:article][:body]
 		# 	)
-
+		
 		@articulo = current_user.articles.new(article_params())
-		@articulo.afirmacion = true
 		@articulo.categories = params[:categories] #llamando al custom setter del modelo
 		if @articulo.save() then
+			if params[:images] then
+				#===== The magic is here ;)
+				params[:images].each do |image|
+					@articulo.pictures.create(image: image)
+				end
+			end
 			redirect_to @articulo
 		else
+			@category = Category.all
 			render :new #action
 		end
 	end
 
 	#DELETE /articles/:id   ->   article_path(:id)
 	def destroy()
-		# @articulo = current_user.articles.find(params[:id])
+		@articulo = current_user.articles.find(params[:id])
 		@articulo.destroy()
-		redirect_to articles_path 
+		@articulo.categories.destroy_all()
+		@articulo.pictures.destroy_all()
+		redirect_to :back
 	end
 
 	#GET /articles/:id/edit   ->   edit_article_path(:id)
@@ -56,20 +65,36 @@ class ArticlesController < ApplicationController
 
 	#PUT/PATCH /articles/:id   ->   article_path(:id)
 	def update()
-		@articulo.borrar_HasCategory(params[:id])
+		# @articulo.borrar_HasCategory(params[:id])
 		@articulo.categories = params[:categories]
+		@articulo.imagenes = params[:imagenes]
+		@articulo.articuloID = params[:id]
 
 		if @articulo.update(article_params()) then
+			if @articulo.validar_imagenes(params[:images],params[:id]) then
+				#===== The magic is here ;)
+				if params[:images] then
+					params[:images].each do |image|
+						@articulo.pictures.create(image: image)
+					end
+				end
+			else
+				flash[:notice] = "error en numero de imagenes"
+			end
 			redirect_to @articulo
 		else
+			@category = Category.all
 			render :edit
 		end
 	end
 
 
 	private
+	def picture_params()
+		params.require(:picture).permit(pictures_attributes:[:id, :article_id, :image, :_destroy])
+	end
 	def article_params()
-		params.require(:article).permit(:title, :body, :imageblog) #nos pertmite traer solo los parametros deseados
+		params.require(:article).permit(:title, :body) #nos pertmite traer solo los parametros deseados
 	end
 	def editar_articulo()
 		unless Article.find(params[:id]).user == current_user then

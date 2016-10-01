@@ -2,9 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).on "ajax:success", "a#eliminar",  (ev,data)->
-	console.log data
-	alert "articulo borrado con exito"
+# $(document).on "ajax:success", "a#eliminar",  (ev,data)->
+# 	console.log data
+# 	alert "articulo borrado con exito"
 
-$(document).on "ajax:error", "a#eliminar", (ev,data)->
-	console.log data
+# $(document).on "ajax:error", "a#eliminar", (ev,data)->
+# 	console.log data

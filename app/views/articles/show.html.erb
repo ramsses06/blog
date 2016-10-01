@@ -21,12 +21,16 @@
 
 <span class="glyphicon glyphicon-time"></span> Se creo el: <%= @articulo.created_at %>
 <br>
-<img class="img-responsive" src="<%= @articulo.imageblog.url() %>" alt="">
+
+<% @articulo.pictures.each do |imagen| %>
+	<img class="img-responsive" src="<%= imagen.image.url() %>" alt="">
+<% end %>
+
 <br>
 <p> <%= @articulo.body %> </p>
  <span class="badge"><%= tamano(@articulo.comments) %></span><span class="text-muted">comentarios</span>
 &nbsp;
-<span class="badge"><%= @articulo.visits_count %></span><span class="text-muted">vistas</span>
+<span class="badge"><%= @articulo.view.vistas %></span><span class="text-muted">vistas</span>
 <br>
 <br>
 <div>
