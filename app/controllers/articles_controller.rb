@@ -52,11 +52,11 @@ class ArticlesController < ApplicationController
 	def destroy()
 		@articulo = current_user.articles.find(params[:id])
 		@articulo.destroy()
-		@articulo.categories.destroy_all()
-		@articulo.pictures.destroy_all()
-		@articulo.comments.destroy_all()
-		@articulo.has_categorie.destroy()
-		@articulo.view.destroy()
+		# @articulo.pictures.destroy_all()
+		# @articulo.categories.destroy_all()
+		# @articulo.comments.destroy_all()
+		# @articulo.has_categories.delete_all
+		# @articulo.view.delete
 		redirect_to :back
 	end
 
