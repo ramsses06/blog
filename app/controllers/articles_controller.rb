@@ -13,10 +13,23 @@ class ArticlesController < ApplicationController
 
 	#GET /articles/:id   ->   article_path(:id)
 	def show()
+		booleano = false
 		@comment = Comment.new
 		@articulo = Article.find(params[:id])
-		@articulo.inc_visits()
 		@comentarios = @articulo.comments.order("id DESC")
+		# ===  negar incremento de visitas de un articulo propio
+		if user_signed_in? then
+			current_user.articles.all.each do |artuser|
+				if @articulo==artuser then
+					booleano = true
+				end
+			end
+		end
+		if booleano==false then
+			@articulo.inc_visits()
+			return
+		end
+		# fin de incremento
 	end
 
 	#GET /articles/new   ->   new_article_path
@@ -54,8 +67,8 @@ class ArticlesController < ApplicationController
 		@articulo.destroy()
 		@articulo.pictures.destroy_all()
 		@articulo.comments.destroy_all()
-		@articulo.has_categories.delete_all
-		@articulo.view.delete
+		@articulo.has_categories.destroy_all()
+		@articulo.view.destroy()
 		redirect_to :back
 	end
 

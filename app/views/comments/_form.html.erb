@@ -1,9 +1,15 @@
 <%= form_for([@articulo,@comment], remote:true, :html=>{id:"comments-form", :"data-type"=>"json"}) do |f| %>  
-  <div class="form-group">
-    <%= f.text_area :body, placeholder:"Escribe tu comentario aqui", class:"form-control", rows:"7" %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Comentar", class: "btn btn-primary" %>
-  </div>
-  <br>
+	<% if user_signed_in? then %>
+		<div class="form-group">
+		<%= f.text_area :body, placeholder:"Escribe tu comentario aqui", class:"form-control", rows:"7" %>
+		</div>
+		<div class="actions">
+		<%= f.submit "Comentar", class: "btn btn-primary" %>
+		</div>
+		<br>
+	<% else %>
+		<div class="well">
+			<h4><%= link_to "Inicia Sesion", "/users/sign_in" %> o <%= link_to "Registrate", "/users/sign_up" %> para comentar este POST</h4>
+		</div>
+	<% end %>
 <% end %>
