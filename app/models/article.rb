@@ -3,12 +3,12 @@ class Article < ActiveRecord::Base
 	# hace referencia a un usuario
 	belongs_to :user
 	has_many :comments
-	has_many :pictures 
+	has_many :pictures
 	
 	#referencia muchas categorias
 	has_many :has_categories
 	has_many :categories, through: :has_categories
-	has_one :view, dependent: :destroy
+	has_one :view
 
 	validates :title, presence: {message: "= El titulo requerido"}, length: {minimum: 5 , message: "= Minimo 5 caracteres"}, uniqueness: {message: "= Este titulo ya existe"}, format: {with: /\A[a-zA-Z0-9 ]+\z/ , message: "= Solo acepta letras y numeros"}
 	validates :body, presence: {message: "= El cuerpo del articulo es requerido"}, length: {minimum: 20, message: "= El articulo debe contener minimo 20 carateres"}
