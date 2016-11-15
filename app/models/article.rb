@@ -3,7 +3,7 @@ class Article < ActiveRecord::Base
 	# hace referencia a un usuario
 	belongs_to :user
 	has_many :comments
-	has_many :pictures, dependent: :destroy
+	has_many :pictures
 	
 	#referencia muchas categorias
 	has_many :has_categories
