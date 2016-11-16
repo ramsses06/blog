@@ -25,9 +25,10 @@
 
 	<% @articulo.pictures.each do |imagenes| %> 
 		<%= f.fields_for :pictures, imagenes do |image_fields| %>
-			<%= image_tag imagenes.image.url(), class: "img-responsive", style:"width:200px;" %>
-			<%= check_box_tag "imagenes[]", imagenes.id %> Eliminar
-
+			<%= image_tag imagenes.image.url(), class: "img-responsive img-post-edit" %>
+			<!-- check_box_tag "imagenes[]", imagenes.id Eliminar -->
+			<input type="checkbox" name="imagenes[]" id="<%= imagenes.image_file_name + imagenes.id.to_s %>" value="<%= imagenes.id %>">
+			<span><label for="<%= imagenes.image_file_name + imagenes.id.to_s %>" class="labelpointer">Eliminar</label></span><br><br>
 		<% end %>
 	<% end %>
 
@@ -43,7 +44,9 @@
 	<br>
 	<% @category.each do |category| %>
 		<div class="form-group">
-			<%= check_box_tag "categories[]", category.id %> <label><%= category.name %></label>
+			<!-- check_box_tag "categories[]", category.id <label>category.name</label> -->
+			<input type="checkbox" name="categories[]" id="<%= category.name + category.id.to_s %>" value="<%= category.id %>" <%= checkbox(@articulo.id,category.id) %>>
+			<label for="<%= category.name + category.id.to_s %>" class="labelpointer"><%= category.name %></label>
 		</div>
 	<% end %>
 	<div class="input-group">

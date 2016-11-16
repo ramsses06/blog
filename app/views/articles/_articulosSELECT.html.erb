@@ -19,7 +19,7 @@
     <span class="glyphicon glyphicon-time"></span> Se creo el: <%= articulo.created_at %>
     <br>
     <% articulo.pictures.each do |imagen| %>
-    <img class="img-responsive" src="<%= imagen.image.url() %>" alt="">
+    <img class="img-responsive img-post" src="<%= imagen.image.url() %>" alt="">
     <% break %>
     <% end %>
     <br>

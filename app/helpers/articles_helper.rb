@@ -11,4 +11,15 @@ module ArticlesHelper
 		end
 	end
 
+	def checkbox(articuloID,categoryID)
+		consulta = HasCategory.where("article_id = ? AND category_id = ?", articuloID, categoryID)
+		unless consulta.empty? then
+			consulta.each do |c|
+				if c then
+					return "checked"
+				end
+			end
+		end
+	end
+
 end
