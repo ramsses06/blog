@@ -10,6 +10,9 @@ class Article < ActiveRecord::Base
 	has_many :categories, through: :has_categories
 	has_one :view
 
+	#incluir modulo de maquina de estados
+	include AASM
+
 	validates :title, presence: {message: "= El titulo requerido"}, length: {minimum: 5 , message: "= Minimo 5 caracteres"}, uniqueness: {message: "= Este titulo ya existe"}, format: {with: /\A[a-zA-Z0-9 ]+\z/ , message: "= Solo acepta letras y numeros"}
 	validates :body, presence: {message: "= El cuerpo del articulo es requerido"}, length: {minimum: 20, message: "= El articulo debe contener minimo 20 carateres"}
 	#validar con expresion regular 
@@ -22,6 +25,23 @@ class Article < ActiveRecord::Base
 	after_update :update_categories
 	before_update :borrar_imagenes
 
+	#Bloque de cambio de state con la maquina de estados
+	aasm column: "state" do
+		state :borrador, initial: true
+		state :publico
+
+		event :publish do
+			transitions from: :borrador, to: :publico
+		end
+
+		event :unpublish do
+			transitions from: :publico, to: :borrador
+		end
+	end
+
+	#SCOPE para consultas
+	scope :publicados, ->{ where(state: "publico") }
+	scope :ultimos_3, ->{ order("created_at DESC").limit(3) }
 
 
 	#custom setter ->  guardar id de categorias en un arreglo
@@ -35,7 +55,6 @@ class Article < ActiveRecord::Base
 	def imagenes=(values)
 		@imagenes = values
 	end
-	
 
 	def inc_visits()
 		@vista = View.where(article_id: self.id)
@@ -82,21 +101,25 @@ class Article < ActiveRecord::Base
 		end
 	end
 	def borrar_imagenes()
-		articulo = Article.find(@articuloID)
-		if @imagenes then
-			@imagenes.each do |imagenID|
-				borrar = articulo.pictures.find(imagenID)
-				if borrar then
-					borrar.destroy
+		if @articuloID then
+			articulo = Article.find(@articuloID)
+			if @imagenes then
+				@imagenes.each do |imagenID|
+					borrar = articulo.pictures.find(imagenID)
+					if borrar then
+						borrar.destroy
+					end
 				end
 			end
 		end
 	end
 	def borrar_HasCategory()
+		if @articuloID then
 			borrar = HasCategory.where('article_id = ?',@articuloID)
 			if borrar then
 				borrar.destroy_all
 			end
+		end
 	end
 
 end

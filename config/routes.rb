@@ -8,6 +8,11 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :update, :destroy]
   end
 
+  get "/admin/dashboard", to: "welcome#dashboard"
+
+  put "/articles/:id/publish", to: "articles#publish"
+  put "/articles/:id/unpublish", to: "articles#unpublish"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

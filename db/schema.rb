@@ -11,19 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161001155337) do
+ActiveRecord::Schema.define(version: 20161118005926) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
-    t.integer  "visits_count",           default: 0
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.integer  "user_id"
     t.string   "imageblog_file_name"
     t.string   "imageblog_content_type"
     t.integer  "imageblog_file_size"
     t.datetime "imageblog_updated_at"
+    t.string   "state",                  default: "borrador"
   end
 
   add_index "articles", ["user_id"], name: "index_articles_on_user_id"
@@ -81,9 +81,9 @@ ActiveRecord::Schema.define(version: 20161001155337) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "name"
-    t.string   "authentication_level"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "authentication_level",   default: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

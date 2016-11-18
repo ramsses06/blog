@@ -11,12 +11,20 @@
             Usuario Anonimo
         <% end %>
 
-        <% if user_signed_in? and articulo.user == current_user then %>
+        <% if user_signed_in? and current_user.is_admin?  then %>
             <%= link_to " Eliminar ", articulo, method: :delete, id:"eliminar", class:"glyphicon glyphicon-trash btn btn-danger btn-xs right" %> &nbsp;
+            <% if articulo.publico? then%>
+                <%= link_to "Mandar a Borrador", "/articles/#{articulo.id}/unpublish", method: :put %>
+            <% else %>
+                <%= link_to "Publicar", "/articles/#{articulo.id}/publish", method: :put %>
+            <% end %>
+        <% elsif user_signed_in? and articulo.user == current_user and current_user.is_editor? %>
     		<%= link_to " Modificar", edit_article_path(articulo), class:"glyphicon glyphicon-pencil btn btn-primary btn-xs right" %>
         <% end %>
+        
     </p>
     <span class="glyphicon glyphicon-time"></span> Se creo el: <%= articulo.created_at %>
+    <span class="text-muted">Estado: <% if articulo.publico? %>Publicado<% else %>Borrador<% end %></span>
     <br>
     <% articulo.pictures.each do |imagen| %>
     <img class="img-responsive img-post" src="<%= imagen.image.url() %>" alt="">

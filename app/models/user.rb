@@ -6,5 +6,9 @@ class User < ActiveRecord::Base
 
   has_many :articles
   has_many :comments
+
+  
+	#Incluir los metodos de CONCERN
+	include AuthenticationConcern
   
 end

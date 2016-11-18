@@ -2,8 +2,10 @@ class ArticlesController < ApplicationController
 
 	#callback para realizar algo antes o despues de la acciones del controlador.
 	before_action :authenticate_user! , except: [:show]
-	before_action :editar_articulo, only: [:edit,:update,:destroy]
-	before_action :set_articulos_user, only: [:update, :edit, :destroy]
+	before_action :editar_articulo, only: [:edit,:update]
+	before_action :set_articulos_user, only: [:update, :edit]
+	before_action :authenticate_editor!, only: [:new, :create, :edit, :update]
+	before_action :authenticate_admin!, only: [:destroy, :publish, :unpublish]
 
 	
 	#GET /articles   ->   articles_path
@@ -63,7 +65,7 @@ class ArticlesController < ApplicationController
 
 	#DELETE /articles/:id   ->   article_path(:id)
 	def destroy()
-		@articulo = current_user.articles.find(params[:id])
+		@articulo = Article.find(params[:id])
 		@articulo.view.destroy()
 		@articulo.pictures.destroy_all()
 		@articulo.comments.destroy_all()
@@ -101,6 +103,19 @@ class ArticlesController < ApplicationController
 			@category = Category.all
 			render :edit
 		end
+	end
+
+	#Acciones persolanizadas para borrador y publicar
+	def unpublish()
+		@borrador = Article.find(params[:id])
+		@borrador.unpublish!
+		redirect_to "/admin/dashboard"
+	end
+
+	def publish()
+		@borrador = Article.find(params[:id])
+		@borrador.publish!
+		redirect_to "/admin/dashboard"
 	end
 
 
