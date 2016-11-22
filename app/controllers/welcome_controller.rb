@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
 	before_action :authenticate_admin!, only: [:dashboard]
 
   def index()
-  	@articulos = Article.publicados.ultimos_3
+  	@articulos = Article.publicados.ultimos
   end
 
   def dashboard()

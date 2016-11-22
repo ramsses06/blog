@@ -2,13 +2,13 @@ class Article < ActiveRecord::Base
 
 	# hace referencia a un usuario
 	belongs_to :user
-	has_many :comments
-	has_many :pictures
+	has_many :comments, dependent: :destroy
+	has_many :pictures, dependent: :destroy
 	
 	#referencia muchas categorias
-	has_many :has_categories
+	has_many :has_categories, dependent: :destroy
 	has_many :categories, through: :has_categories
-	has_one :view
+	has_one :view, dependent: :destroy
 
 	#incluir modulo de maquina de estados
 	include AASM
@@ -41,7 +41,7 @@ class Article < ActiveRecord::Base
 
 	#SCOPE para consultas
 	scope :publicados, ->{ where(state: "publico") }
-	scope :ultimos_3, ->{ order("created_at DESC").limit(3) }
+	scope :ultimos, ->{ order("created_at DESC") }
 
 
 	#custom setter ->  guardar id de categorias en un arreglo
