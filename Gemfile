@@ -33,6 +33,8 @@ gem "devise"
 gem "paperclip", '5.1.0'
 #gema de maquinas de estado
 gem "aasm"
+#gema para paginacion
+gem "will_paginate"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

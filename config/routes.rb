@@ -2,11 +2,14 @@ Rails.application.routes.draw do
   
   resources :categories
   devise_for :users
-  post 'welcome/index'
+  # post 'welcome/index'
+  get '/inicio/', to: "welcome#index"
 
   resources :articles do
     resources :comments, only: [:create, :update, :destroy]
   end
+  # Prueba de recurso para acceder como articulos y NO articles
+  resources :articulos, :controller=>"articles", :path => "articulos"
 
   get "/admin/dashboard", to: "welcome#dashboard"
 

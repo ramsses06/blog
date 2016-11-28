@@ -66,10 +66,6 @@ class ArticlesController < ApplicationController
 	#DELETE /articles/:id   ->   article_path(:id)
 	def destroy()
 		@articulo = Article.find(params[:id])
-		# @articulo.view.destroy()
-		# @articulo.pictures.destroy_all()
-		# @articulo.comments.destroy_all()
-		# @articulo.has_categories.destroy_all()
 		@articulo.destroy()
 		redirect_to :back
 	end
