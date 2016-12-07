@@ -31,6 +31,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem "devise"
 #administrar archivo
 gem "paperclip", '5.1.0'
+# gem 'imagemagick-identify', '~> 0.0.1'
 #gema de maquinas de estado
 gem "aasm"
 #gema para paginacion

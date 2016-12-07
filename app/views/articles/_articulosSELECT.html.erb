@@ -27,7 +27,7 @@
     <span class="text-muted">Estado: <% if articulo.publico? %>Publicado<% else %>Borrador<% end %></span>
     <br>
     <% articulo.pictures.each do |imagen| %>
-    <img class="img-responsive img-post" src="<%= imagen.image.url() %>" alt="">
+    <img class="img-responsive img-post" src="<%= imagen.image.url(:medium) %>" alt="">
     <% break %>
     <% end %>
     <br>

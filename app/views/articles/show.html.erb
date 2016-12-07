@@ -23,7 +23,7 @@
 <br>
 
 <% @articulo.pictures.each do |imagen| %>
-	<img class="img-responsive img-post-show" src="<%= imagen.image.url() %>" alt=""><br>
+	<img class="img-responsive img-post-show" src="<%= imagen.image.url(:thumb) %>" alt=""><br>
 <% end %>
 
 <br>
