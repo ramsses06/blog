@@ -37,6 +37,8 @@ gem "aasm"
 #gema para paginacion
 gem "will_paginate"
 
+gem 'omniauth-twitter'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

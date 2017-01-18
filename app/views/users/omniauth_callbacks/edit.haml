@@ -1,0 +1,10 @@
+%div.col-md-6.col-sm-12.col-xs-12.no-float.center-block
+  %div.card.medium-padding
+    -@user.errors.full_messages.each do |error|
+      =error
+    %h2.text-center
+      Inicio de Sesión
+    .top-space
+      =form_tag "/sign_up_data", method: :post do
+        =email_field_tag "user[email]", @user.email, placeholder:"Correo electrónico", class: "form-control floating-label"
+        =submit_tag "Iniciar Sesión", class: "btn btn-success"
