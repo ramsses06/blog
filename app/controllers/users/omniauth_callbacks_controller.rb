@@ -2,7 +2,9 @@ class Users::OmniauthCallbacksController < ApplicationController
 
   def twitter
     #ver los parametros que nos interesan de facebook
-      # raise request.env["omniauth.auth"]["info"]["email"].to_yaml
+      # raise request.env["omniauth.auth"]["provider"].to_yaml
+      hashtest = {provider: request.env["omniauth.auth"]["provider"], uid: request.env["omniauth.auth"]["uid"], info: {email: request.env["omniauth.auth"]["info"]["email"]}}
+      # raise hashtest.to_yaml
 
       @user = User.from_omniauth(request.env["omniauth.auth"])
 
@@ -10,7 +12,7 @@ class Users::OmniauthCallbacksController < ApplicationController
         @user.remember_me = true #para recordar la sesion de usuario
         sign_in_and_redirect @user, event: :authentication #inicia sesion si encuentra al usuario
       else
-        session["devise.auth"] = request.env["omniauth.auth"] #guardamos la info de facebook en una sesion
+        session["devise.auth"] = hashtest #guardamos la info de facebook en una sesion
         render :edit #/users/omniauth_callbacks/edit
       end
   end
