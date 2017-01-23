@@ -4,7 +4,7 @@ class Article < ActiveRecord::Base
 	belongs_to :user
 	has_many :comments, dependent: :destroy
 	has_many :pictures, dependent: :destroy
-	
+
 	#referencia muchas categorias
 	has_many :has_categories, dependent: :destroy
 	has_many :categories, through: :has_categories
@@ -15,10 +15,10 @@ class Article < ActiveRecord::Base
 
 	validates :title, presence: {message: "= El titulo requerido"}, length: {minimum: 5 , message: "= Minimo 5 caracteres"}, uniqueness: {message: "= Este titulo ya existe"}, format: {with: /\A[a-zA-Z0-9 ]+\z/ , message: "= Solo acepta letras y numeros"}
 	validates :body, presence: {message: "= El cuerpo del articulo es requerido"}, length: {minimum: 20, message: "= El articulo debe contener minimo 20 carateres"}
-	#validar con expresion regular 
+	#validar con expresion regular
 	# validates :campo, format: { with: /regex/ }
 
-	
+
 
 	after_create :save_categories #antes de crear guarda las catagorias guardadas por el custom setter
 	before_update :borrar_HasCategory
@@ -42,6 +42,14 @@ class Article < ActiveRecord::Base
 	#SCOPE para consultas
 	scope :publicados, ->{ where(state: "publico") }
 	scope :ultimos, ->{ order("created_at DESC") }
+
+	def self.search(search)
+    if search && search.empty? == false
+      where('title LIKE ?', "%#{search}%").publicados
+    else
+      nil
+    end
+  end
 
 
 	#custom setter ->  guardar id de categorias en un arreglo

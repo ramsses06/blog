@@ -1,0 +1,7 @@
+= form_tag "/search", :method => 'get', remote: true, :id => "articles_search" do
+
+  = text_field_tag :title, params[:title]
+  = submit_tag "Buscar", name: nil
+
+#searchcontent
+

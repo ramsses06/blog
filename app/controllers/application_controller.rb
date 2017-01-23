@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :set_categories
 
   protected
-  
+
   def authenticate_editor!
 	unless user_signed_in? && current_user.is_editor? then
 		redirect_to root_path
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   private
   def set_categories
-	@categories_nav = Category.all
+	 @categories_nav = Category.all
   end
 
 

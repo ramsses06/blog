@@ -10,4 +10,15 @@ class WelcomeController < ApplicationController
   	@articulos = Article.all.order("id DESC")
   end
 
+  def search()
+    respond_to do |format|
+        format.js {
+          @articlesearch = Article.search(params[:title])
+        }
+        format.html {
+          @articlesearch = Article.search(params[:title])
+        }
+    end
+  end
+
 end

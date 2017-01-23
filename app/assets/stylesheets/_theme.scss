@@ -33,3 +33,11 @@ footer.container-fluid{
 	width:100px !important;
 	display:inline-block;
 }
+
+.fixed{
+	position: fixed;
+}
+#searchcontent{
+	height: 400px;
+	overflow-y: scroll;
+}

@@ -38,17 +38,11 @@
             <% end %>
             <!--  NAV PUBLICA  -->
             <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                    <%=link_to "Inicio", root_path, class: "page-scroll" %>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                    <% @categories_nav.each do |categoria| %>
-                        <li role="separator" class="divider"></li>
-                        <li><%= link_to categoria.name, categoria, style:"color:#{categoria.color};" %></li>                        
+                <li>
+                    <%=link_to "#buscar-articulos", "data-toggle" => "modal" do %>
+                        Buscar
+                        <i class="glyphicon glyphicon-search"></i>
                     <% end %>
-                    </ul>
                 </li>
             </ul>
         </div>
@@ -56,3 +50,24 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
+
+<!-- Modal -->
+<div class="modal fade fixed" id="buscar-articulos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+
+      <%= render :file => "/welcome/search" %>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
