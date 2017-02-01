@@ -1,1 +1,5 @@
-$("#searchcontent").html("<%= escape_javascript(render("/articles/articles")) %>");
+<% if @articlesearch != nil %>
+  $("#searchcontent").html("<%= escape_javascript(render("/articles/articles")) %>");
+<% else %>
+  $("#searchcontent").html("Woops! Busca de nuevo");
+<% end %>

@@ -9,8 +9,8 @@
 # $(document).on "ajax:error", "a#eliminar", (ev,data)->
 # 	console.log data
 
-$(document).on "ajax:error", "#articles_search", (ev,data)->
-  $("#mensaje").remove()
-  $("#busquedas").remove()
-  $("#searchcontent").append("<div id='mensaje'> Woops! Busca de nuevo </div>")
+# $(document).on "ajax:error", "#articles_search", (ev,data)->
+#   $("#mensaje").remove()
+#   $("#busquedas").remove()
+#   $("#searchcontent").append("<div id='mensaje'> Woops! Busca de nuevo </div>")
   # console.log data
