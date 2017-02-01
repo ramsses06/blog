@@ -14,6 +14,9 @@ class WelcomeController < ApplicationController
     respond_to do |format|
         format.js {
           @articlesearch = Article.search(params[:title])
+          if @articlesearch == nil
+            render :search, status: :unprocessable_entity
+          end
         }
         format.html {
           @articlesearch = Article.search(params[:title])

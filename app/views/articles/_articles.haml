@@ -1,32 +1,33 @@
 #busquedas
-  - for article in @articlesearch
-    %h1
-      = link_to "#{article.title}", article_path(article)
+  -unless @articlesearch.nil?
+    - for article in @articlesearch
+      %h1
+        = link_to "#{article.title}", article_path(article)
 
-    %span.glyphicon.glyphicon-time
-    Se creo el: #{article.created_at}
-    %span.text-muted
-      Estado:
-      - if article.publico?
-        Publicado
-      - else
-        Borrador
+      %span.glyphicon.glyphicon-time
+      Se creo el: #{article.created_at}
+      %span.text-muted
+        Estado:
+        - if article.publico?
+          Publicado
+        - else
+          Borrador
 
-    %p
-      = truncate(article.body, length:80)
-    .row
-      .col-md-6
-        %a.btn.btn-primary{:href => article_path(article)}
-          Continuar Leyendo
-          %span.glyphicon.glyphicon-chevron-right
-      .col-md-6.text-right
-        %span.badge= tamano(article.comments)
-        %span.text-muted comentarios
-        \ 
-        %span.badge= article.view.vistas
-        %span.text-muted vistas
-    %br/
-    %div
-      %span.text-muted Categorias:
-      - article.categories.each do |categoria|
-        = link_to categoria.name, categoria, class:"btn btn-default", style:"color:#{categoria.color};"
+      %p
+        = truncate(article.body, length:80)
+      .row
+        .col-md-6
+          %a.btn.btn-primary{:href => article_path(article)}
+            Continuar Leyendo
+            %span.glyphicon.glyphicon-chevron-right
+        .col-md-6.text-right
+          %span.badge= tamano(article.comments)
+          %span.text-muted comentarios
+          \ 
+          %span.badge= article.view.vistas
+          %span.text-muted vistas
+      %br/
+      %div
+        %span.text-muted Categorias:
+        - article.categories.each do |categoria|
+          = link_to categoria.name, categoria, class:"btn btn-default", style:"color:#{categoria.color};"

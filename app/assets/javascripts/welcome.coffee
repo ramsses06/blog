@@ -13,3 +13,4 @@ $(document).on "ajax:error", "#articles_search", (ev,data)->
   $("#mensaje").remove()
   $("#busquedas").remove()
   $("#searchcontent").append("<div id='mensaje'> Woops! Busca de nuevo </div>")
+  # console.log data
