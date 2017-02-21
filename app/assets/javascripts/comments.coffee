@@ -7,5 +7,9 @@ $(document).on "ajax:success", "form#comments-form",(ev,data)->
 	$("ul#comments-box").prepend("<li><b>#{data.user.email}: </b>#{data.body}</li>")
 	$(this).find("textarea").val("")
 
-$(document).on "ajax:error", "form#comments-form", (ev,data)->
-	console.log data
+jQuery ->
+  objetos = $("#comentariosData").data('comentarios')
+  # console.log (objetos)
+  $.each objetos, (obj, values) ->
+    console.log (values)
+    $("#comentariosData").append("<ul><h1><strong>#{values.user_id}</strong></h1><li>#{values.body}</li></ul>")

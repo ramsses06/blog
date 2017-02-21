@@ -2,7 +2,7 @@ class Picture < ActiveRecord::Base
 	belongs_to :article
 
   # referencia a la imagen
-	has_attached_file :image, :path=>":rails_root/public/images/:id/:filename", :url=>"/images/:id/:filename" , styles: { medium:"900x300#", thumb:"300x100#" }
+	has_attached_file :image, :path=>":rails_root/public/images/:id/:filename/:style", :url=>"/images/:id/:filename/:style" , styles: { medium:"900x300#", thumb:"300x100#" }
 
 	#validaciones para paperclip
 	validates_attachment_content_type :image, content_type: /\Aimage/

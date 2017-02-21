@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/inicio/', to: "welcome#index"
 
   resources :articles do
-    resources :comments, only: [:create, :update, :destroy]
+    resources :comments, only: [:create, :update, :destroy, :index]
   end
   # Prueba de recurso para acceder como articulos y NO articles
   resources :articulos, :controller=>"articles", :path => "articulos"

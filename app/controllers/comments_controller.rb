@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
+     @comments = Article.find(params[:article_id]).comments
   end
 
   # GET /comments/1
@@ -64,7 +65,7 @@ class CommentsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_article      
+    def set_article
       @this_article = Article.find(params[:article_id])
     end
     def set_comment
