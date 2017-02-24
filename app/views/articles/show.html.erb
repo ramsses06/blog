@@ -4,7 +4,7 @@
 <h1>
 	<%= @articulo.title %>
 </h1>
-  
+
 	<p class="lead">
 		<% unless @articulo.user.nil? then %>
 			Por: <a href=""><%= @articulo.user.email %></a>
@@ -16,7 +16,7 @@
 			<%= link_to " Modificar", edit_article_path(@articulo), class:"glyphicon glyphicon-pencil btn btn-primary btn-xs right" %>
 		<% end %>
 	</p>
- 
+
 
 
 <span class="glyphicon glyphicon-time"></span> Se creo el: <%= @articulo.created_at %>
@@ -48,13 +48,13 @@
 <h2>Comentarios</h2>
 <ul id="comments-box" class="">
 	<% @comentarios.each do |comentarios| %>
-		<li>
+		<li id="comment<%= comentarios.id %>">
 			<b><%= comentarios.user.email %>: </b>
-			<%= comentarios.body %>
+			<span><%= comentarios.body %></span>
 			<% if comentarios.user == current_user then %>
-				<%= link_to "eliminar", [@articulo,comentarios], method: :delete %>
+				<%= link_to "eliminar", [@articulo,comentarios], method: :delete, remote: true, id: "comment_destroy" %>
 			<% end %>
 		</li>
-	<% end %>					
+	<% end %>
 </ul>
 

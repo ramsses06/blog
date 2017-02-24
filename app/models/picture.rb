@@ -9,5 +9,4 @@ class Picture < ActiveRecord::Base
 	validates_attachment_file_name :image, matches: [/png\z/,/jpe?g\z/]
 	do_not_validate_attachment_file_type :image
 
-
 end

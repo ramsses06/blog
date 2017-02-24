@@ -39,8 +39,8 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # paperclip configuracion local 
-  Paperclip.options[:use_exif_orientation] = false
-  Paperclip.options[:command_path] = 'C:\Program Files (x86)\GnuWin32\bin'
+  # paperclip configuracion local
+  # Paperclip.options[:use_exif_orientation] = false
+  # Paperclip.options[:command_path] = 'C:\Program Files (x86)\GnuWin32\bin'
 
 end

@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :set_article
   before_action :authenticate_user!
+  before_action :my_comment!, only: [:destroy]
 
   # GET /comments
   # GET /comments.json
@@ -57,10 +58,11 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to @this_article, notice: 'Comentario borrado' }
-      format.json { head :no_content }
-    end
+    render json: @comment, status: :ok
+    # respond_to do |format|
+    #   format.html { redirect_to @this_article, notice: 'Comentario borrado' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private
@@ -75,5 +77,13 @@ class CommentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
       params.require(:comment).permit(:body)
+    end
+
+    #definir mi comentario antes de borrarlo
+    def my_comment!
+      if current_user != @comment.user
+        redirect_to root_path
+        flash[:notice] = "LARGATE A HACKEAR A OTRO LADO."
+      end
     end
 end
