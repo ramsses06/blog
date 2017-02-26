@@ -11,16 +11,3 @@ $(document).on "ajax:success", "#comment_destroy", (e, data, status, xhr) ->
   console.log status
   $("#comment#{data.id}").children().remove()
   $("#comment#{data.id}").append("Tu comentario ha sido eliminado <a id='cerrar-ventana'>X</a>")
-
-  $("a#cerrar-ventana").on "click", ()->
-    $(this).parent().slideUp()
-
-$(document).ready ->
-  $('.dropdown-toggle').hover (->
-    $(this).parent().addClass 'open'
-    return
-  ), ->
-  $('.dropdown-menu').hover (->
-  ), ->
-    $(this).parent().removeClass 'open'
-    return
