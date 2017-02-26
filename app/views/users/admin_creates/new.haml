@@ -1,0 +1,15 @@
+%div.col-md-6.col-sm-12.col-xs-12.no-float.center-block
+  %div.card.medium-padding
+    -@user.errors.full_messages.each do |error|
+      =error
+    %h2.text-center
+      Inicio de Sesión
+    .top-space
+      =form_tag "/users/admin_creates", method: :post do
+        =email_field_tag "user[email]", @user.email, placeholder:"Correo electrónico", class: "form-control floating-label"
+
+        =select_tag 'user[authentication_level]', raw("<option value='2'>Escritor</option> <option value='3'>Administrador</option>")
+
+        =password_field_tag "user[password]", @user.password, placeholder:"contraseña", class: "form-control floating-label"
+        =password_field_tag "user[password_confirmation]", @user.password_confirmation, placeholder:"contraseña", class: "form-control floating-label"
+        =submit_tag "Iniciar Sesión", class: "btn btn-success"

@@ -3,9 +3,13 @@ Rails.application.routes.draw do
   resources :categories
 
   devise_for :users, controllers:{
-    omniauth_callbacks: "users/omniauth_callbacks"
+    omniauth_callbacks: "users/omniauth_callbacks",
+    admin_creates: "users/admin_creates"
   }
   post "/sign_up_data", to: "users/omniauth_callbacks#sign_up_data"
+  get "/users/admin_creates", to: "users/admin_creates#new"
+  put "/users/admin_creates", to: "users/admin_creates#create"
+  post "/users/admin_creates", to: "users/admin_creates#create"
 
   get '/inicio/', to: "welcome#index"
 

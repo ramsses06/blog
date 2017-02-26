@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:twitter]
+  validates_inclusion_of :authentication_level, :in => 1..3, message: "nivel de permisos inválido"
 
   has_many :articles
   has_many :comments
@@ -18,6 +19,10 @@ class User < ActiveRecord::Base
       end
       user.password = Devise.friendly_token[0,20] #crea clave de 20 caracteres
     end
+  end
+
+  def usuario_normal?
+    self.errors.add(:authentication_level, :invalid, message: "No puedes crear usuarios normales") if authentication_level == 1
   end
 
 end

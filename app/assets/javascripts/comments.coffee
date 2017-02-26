@@ -14,3 +14,13 @@ $(document).on "ajax:success", "#comment_destroy", (e, data, status, xhr) ->
 
   $("a#cerrar-ventana").on "click", ()->
     $(this).parent().slideUp()
+
+$(document).ready ->
+  $('.dropdown-toggle').hover (->
+    $(this).parent().addClass 'open'
+    return
+  ), ->
+  $('.dropdown-menu').hover (->
+  ), ->
+    $(this).parent().removeClass 'open'
+    return
